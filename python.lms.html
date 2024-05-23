@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Python Interpreter</title>
+</head>
+<body>
+    <h1>Web Python Interpreter</h1>
+    <textarea id="input-code" rows="10" cols="80" placeholder="Enter your Python code here..."></textarea>
+    <br>
+    <button onclick="executeCode()">Execute Code</button>
+    <pre id="output"></pre>
+
+    <script>
+        function executeCode() {
+            const code = document.getElementById('input-code').value;
+            fetch('/execute', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ code: code })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById('output').innerText = 'Error: ' + data.error;
+                } else {
+                    document.getElementById('output').innerText = data.output;
+                }
+            })
+            .catch(error => {
+                document.getElementById('output').innerText = 'Error: ' + error.message;
+            });
+        }
+    </script>
+</body>
+</html>

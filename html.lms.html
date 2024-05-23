@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>html.lms</title> 
+  <hr>
+  <hr>
+  <hr>
+  <h1  style="color:white" align="center"><span style="color:red">HTML </span>LEARNING </h1>
+</head>
+<body>
+  <div class="editor">
+    <textarea id="htmlCode" onkeyup="updatePreview()">
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>www.da.lms.com</title>
+            <h1>Welcome</h1>
+        </head>
+        <body>
+            <h2>My First Heading</h2>
+            <p>My first paragraph.</p>
+        </body>
+    </html>
+    
+    </textarea>
+    <iframe id="previewFrame" class="preview"></iframe>
+  </div>
+  <br>
+  <br>
+  <button onclick="saveToFile()">Save as HTML</button>
+</body>
+</html>
+
+
+<style>
+    .editor {
+      display: flex;
+    }
+
+    body {
+        background-color: #000000;
+        font-family:Arial, sans-serif;
+    }
+
+    button {
+    background-color: blue;
+    color:white;
+    border-radius: 30px;
+    border-color:blue;
+    padding-inline: 40px;
+    padding-top:10px ;
+    padding-bottom: 10px;
+    text-decoration:none;
+    
+}
+
+
+    .editor textarea {
+      width: 50%;
+      height: 500px;
+      border: 2px solid #000000;
+      background-color: rgb(227, 244, 244);
+
+    }
+
+    .editor .preview {
+      width: 50%;
+      height: 500px;
+      border: 2px solid #000000;
+      padding: 10px;
+      background-color: rgb(227, 244, 244);
+      overflow: auto;
+    }
+  </style>
+
+
+  <script>
+    function updatePreview() {
+      var htmlCode = document.getElementById('htmlCode').value;
+      var previewFrame = document.getElementById('previewFrame').contentDocument;
+      previewFrame.open();
+      previewFrame.write(htmlCode);
+      previewFrame.close();
+    }
+
+    function saveToFile() {
+      var htmlCode = document.getElementById('htmlCode').value;
+      var blob = new Blob([htmlCode], { type: 'text/html' });
+      var url = URL.createObjectURL(blob);
+      var link = document.createElement('a');
+      link.href = url;
+      link.download = 'compiled.html';
+      link.click();
+    }
+  </script>
